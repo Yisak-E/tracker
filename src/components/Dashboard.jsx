@@ -3,11 +3,13 @@ import {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from "./util/Header.jsx";
 import LogMeal from "./util/LogMeal.jsx";
+import Tracker from "./util/Track.jsx";
+import Report from "./util/Report.jsx";
 
 function Dashboard({ user }) {
   const navigate = useNavigate();
   const[show, setShow] = useState({
-    logmeal: true,
+    logMeal: true,
     tracker: false,
     reports: false,
   });
@@ -36,7 +38,7 @@ function Dashboard({ user }) {
 
   return (
    <>
-    <Header />
+    <Header show={show} setShow={setShow} />
   <div className="grid lg:grid-cols-12 lg:gap-4 bg-gradient-to-br from-green-100 to-white h-screen ">
     <div className="lg:col-span-4 bg-amber-100 p-4 grid grid-rows-3 ">
       <div className="bg-gradient-to-br from-green-100 to-green-400 rounded-t-3xl shadow-lg overflow-hidden ">
@@ -56,10 +58,21 @@ function Dashboard({ user }) {
     </div>
 
     <div className="lg:col-span-8 bg-blue-400 p-4">
-      {show.logmeal &&(
+      {show.logMeal &&(
           <LogMeal user={user} />
       )
+      }
 
+      {
+        show.reports && (
+             <Report user={user} />
+          )
+      }
+
+      {
+        show.tracker && (
+            <Tracker user={user} />
+          )
       }
     </div>
   </div>

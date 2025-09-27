@@ -2,13 +2,24 @@ import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 
 
-export default function Header() {
+export default function Header({show, setShow}) {
      const [isOpen, setIsOpen] = useState(false);
      const navigate = useNavigate();
 
      const navigator =(goto)=>{
          navigate(goto);
      }
+
+    const display = (toDisplay) => {
+      setShow((prev) => {
+        const updated = {};
+        for (const key in prev) {
+            updated[key] = key === toDisplay;
+
+        }
+        return updated;
+      });
+    };
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -45,9 +56,9 @@ export default function Header() {
                     {/* Navigation links */}
                     <div className={`lg:flex flex-col lg:flex-row ${isOpen ? 'block' : 'hidden'} lg:space-x-4 lg:mt-0 mt-4 flex flex-col items-center text-xl`}>
                         <a href="/" className="text-white  px-4 py-2 hover:text-orange-600 ">Home</a>
-                        <a href="#logMeal" className="text-white  px-4 py-2  hover:text-orange-600">Log Meal</a>
-                        <a href="/" className="text-white  px-4 py-2  hover:text-orange-600">Reports</a>
-                        <a href="/" className="text-white  px-4 py-2  hover:text-orange-600">Track</a>
+                        <button onClick={()=>(display("logMeal"))} className="text-white  px-4 py-2  hover:text-orange-600">Log Meal</button>
+                        <button onClick={()=>(display('reports'))}  className="text-white  px-4 py-2  hover:text-orange-600">Reports</button>
+                        <button onClick={()=>(display("tracker"))} className="text-white  px-4 py-2  hover:text-orange-600">Track</button>
                     </div>
                 </div>
 

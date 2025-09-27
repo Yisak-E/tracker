@@ -1,6 +1,7 @@
 import db from '../../firebaseConfig.js'
 import { collection, addDoc } from "firebase/firestore";
 import {useState} from "react";
+import { Timestamp } from "firebase/firestore";
 
 export default function LogMeal({user}) {
     const [foodList, setFoodList] = useState([]);
@@ -47,13 +48,19 @@ export default function LogMeal({user}) {
             setLoading(true);
             setMessage('');
 
-            await addDoc(collection(db, "nutrition"), mealDetails);
+            // Add timestamp only when submitting
+            const mealDataWithTimestamp = {
+                ...mealDetails,
+                takenTime: Timestamp.now() // Set timestamp here
+            };
+
+            await addDoc(collection(db, "nutrition"), mealDataWithTimestamp);
             setMessage('Meal logged successfully!');
 
-            // Reset form
+            // Reset form - keep takenTime empty for next entry
             setMealDetails({
                 email: user.email,
-                takenTime: '',
+                takenTime: '', // Keep this empty
                 mealType: '',
                 foodName: '',
                 quantity: 0.0,

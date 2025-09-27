@@ -2,9 +2,15 @@
 import {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from "./util/Header.jsx";
+import LogMeal from "./util/LogMeal.jsx";
 
 function Dashboard({ user }) {
   const navigate = useNavigate();
+  const[show, setShow] = useState({
+    logmeal: true,
+    tracker: false,
+    reports: false,
+  });
 
   const useScreenSize = () => {
   const [screenSize, setScreenSize] = useState({
@@ -50,7 +56,11 @@ function Dashboard({ user }) {
     </div>
 
     <div className="lg:col-span-8 bg-blue-400 p-4">
-      Second Column
+      {show.logmeal &&(
+          <LogMeal user={user} />
+      )
+
+      }
     </div>
   </div>
 

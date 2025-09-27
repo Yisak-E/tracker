@@ -18,7 +18,7 @@ const firebaseConfig = {
 // Debug: Check the final config
 console.log("Firebase Config:", firebaseConfig);
 
-export const app = initializeApp(firebaseConfig);
+ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
 
@@ -30,3 +30,6 @@ googleProvider.addScope('profile');
 googleProvider.setCustomParameters({
   prompt: 'select_account'
 });
+
+
+export default{ auth, googleProvider};

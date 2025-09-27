@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import LandingPage from './components/LandingPage.jsx';
 import LoginPage from './components/LoginPage';
 import Dashboard from './components/Dashboard';
-import MealTracker from './components/view/MealTracker';
+
 
 function App() {
   const [user, setUser] = useState(null);
@@ -15,7 +15,6 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage setUser={setUser} />} />
         <Route path="/dashboard" element={user ? <Dashboard user={user} /> : <Navigate to="/login" />} />
-        <Route path="/Tracker" element={user ? <MealTracker /> : <Navigate to="/login" />} />
       </Routes>
     </Router>
   );

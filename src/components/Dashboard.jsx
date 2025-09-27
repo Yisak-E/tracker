@@ -61,6 +61,9 @@ function Dashboard({ user }) {
       )
 
       }
+      {show.tracker &&(
+          <div>tracker</div>
+      )}
     </div>
   </div>
 

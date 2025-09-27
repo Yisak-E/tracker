@@ -1,7 +1,9 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
+// Debug: Check if environment variables are loaded
+console.log("API Key exists:", !!import.meta.env.VITE_FIREBASE_API_KEY);
+console.log("Auth Domain:", import.meta.env.VITE_FIREBASE_AUTH_DOMAIN);
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -13,6 +15,18 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
-const app = initializeApp(firebaseConfig);
-const db =getFirestore(app)
-export default db;
+// Debug: Check the final config
+console.log("Firebase Config:", firebaseConfig);
+
+export const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const googleProvider = new GoogleAuthProvider();
+
+// Add scopes for better Google sign-in
+googleProvider.addScope('email');
+googleProvider.addScope('profile');
+
+// Set custom parameters if needed
+googleProvider.setCustomParameters({
+  prompt: 'select_account'
+});

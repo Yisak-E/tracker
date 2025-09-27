@@ -1,8 +1,14 @@
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 
 export default function Header() {
      const [isOpen, setIsOpen] = useState(false);
+     const navigate = useNavigate();
+
+     const navigator =(goto)=>{
+         navigate(goto);
+     }
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -14,7 +20,7 @@ export default function Header() {
             {/* Navbar */}
             <nav className="bg-black p-4">
                 <div className="container mx-auto flex flex-col lg:flex-row justify-between items-center">
-                    <div className="text-white font-bold text-3xl mb-4 lg:mb-0 hover:text-orange-600 hover:cursor-pointer">Nut-Tracker </div>
+                    <div className="text-white font-bold text-3xl mb-4 lg:mb-0 hover:text-orange-600 hover:cursor-pointer" onClick={()=>{navigator('/')}}>Nut-Tracker </div>
 
                     {/* Hamburger menu for small screens */}
                     <div className="lg:hidden">

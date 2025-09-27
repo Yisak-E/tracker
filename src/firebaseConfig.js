@@ -1,9 +1,7 @@
+// firebaseConfig.js
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
-
-// Debug: Check if environment variables are loaded
-console.log("API Key exists:", !!import.meta.env.VITE_FIREBASE_API_KEY);
-console.log("Auth Domain:", import.meta.env.VITE_FIREBASE_AUTH_DOMAIN);
+import { getFirestore } from "firebase/firestore"; // Add this import
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -15,21 +13,15 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
-// Debug: Check the final config
-console.log("Firebase Config:", firebaseConfig);
+// Initialize Firebase
+export const app = initializeApp(firebaseConfig);
 
- const app = initializeApp(firebaseConfig);
+// Initialize Authentication
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
 
-// Add scopes for better Google sign-in
-googleProvider.addScope('email');
-googleProvider.addScope('profile');
+// Initialize Firestore Database - Add this
+export const db = getFirestore(app);
 
-// Set custom parameters if needed
-googleProvider.setCustomParameters({
-  prompt: 'select_account'
-});
-
-
-export default{ auth, googleProvider};
+// Export default if needed
+export default db;

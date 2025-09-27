@@ -74,6 +74,9 @@ function Dashboard({ user }) {
             <Tracker user={user} />
           )
       }
+      {show.tracker &&(
+          <div>tracker</div>
+      )}
     </div>
   </div>
 
